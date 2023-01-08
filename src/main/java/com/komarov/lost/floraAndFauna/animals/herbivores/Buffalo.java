@@ -7,7 +7,8 @@ import lombok.*;
 @Data
 @RequiredArgsConstructor
 public class Buffalo extends Animal implements Herbivore {
-    public final static String BUFFALO_EMOJI = "\uD83D\uDC03";
+
+    public final static String BUFFALO_EMOJI = "\uD83D\uDC03"; // 🐃
 
     static int population;
     final static int maxPopulationOnArea = 0;
@@ -33,7 +34,7 @@ public class Buffalo extends Animal implements Herbivore {
             setSatiety(this.satiety += plant.getWeight());
             setHungry(satiety < maxSatiety);
         } else if (!this.isHungry()) {
-            System.out.println("the buffalo is not hungry");
+            System.out.println("The buffalo is not hungry");
         }
     }
 }
