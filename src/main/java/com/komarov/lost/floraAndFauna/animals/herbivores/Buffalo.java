@@ -1,40 +1,45 @@
 package com.komarov.lost.floraAndFauna.animals.herbivores;
 
 import com.komarov.lost.floraAndFauna.animals.Animal;
-import com.komarov.lost.floraAndFauna.plants.Plant;
 import lombok.*;
 
-@Data
-@RequiredArgsConstructor
+
+@Getter
 public class Buffalo extends Animal implements Herbivore {
 
     public final static String BUFFALO_EMOJI = "\uD83D\uDC03"; // 🐃
 
     static int population;
-    final static int maxPopulationOnArea = 0;
+    final static int maxPopulationOnArea = 10;
     final static int maxSatiety = 100;
 
     final int speed = 3;
     final int weight = 700;
+    @Setter
     int satiety = maxSatiety / 2;
+    @Setter
     boolean hungry = true;
+
+    public Buffalo(int x, int y) {
+        coordinateX = x;
+        coordinateY = y;
+    }
 
 
     @Override
     protected void selectDirection() {
     }
 
-    @Override
-    protected void move() {
-    }
 
     @Override
-    public void eat(Plant plant) {
-        if (plant != null && this.isHungry()) {
-            setSatiety(this.satiety += plant.getWeight());
-            setHungry(satiety < maxSatiety);
-        } else if (!this.isHungry()) {
-            System.out.println("The buffalo is not hungry");
-        }
+    public void getFood(Object ob) {
+
+    }
+
+
+    @Override
+    public String toString() {
+        char status = this.isHungry() ? 'h' : 'f';
+        return BUFFALO_EMOJI + " " + status;
     }
 }
