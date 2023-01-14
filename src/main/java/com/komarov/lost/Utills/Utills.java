@@ -13,13 +13,13 @@ public class Utills {
     }
 
     public static List fillListPlants(int amountOfPlants){
-        return Stream.generate(()-> new Plant())
+        return Stream.generate(Plant::new)
                 .limit(amountOfPlants)
                 .collect(Collectors.toList());
     }
 
     public static int rollTheDice(int numberOfFaces){
-        return new Random().nextInt(0, numberOfFaces);
+        return new Random().nextInt(0, numberOfFaces + 1);
     }
 
 }

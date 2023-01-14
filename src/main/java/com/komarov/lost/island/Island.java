@@ -1,18 +1,40 @@
 package com.komarov.lost.island;
 
 
-public class Island{
+import com.komarov.lost.Utills.Utills;
+import lombok.Getter;
 
-    private Cell[][] island;
+public class Island {
+    public static final Island ISLAND;
 
-    public Island(int verticalIslandSize, int horizontalIslandSize) {
-        island = new Cell[verticalIslandSize][horizontalIslandSize];
+    static {
+        ISLAND = new Island(1,1);
+    }
+
+    @Getter
+    private final Cell[][] island;
+
+    public Island(int horizontalIslandSize, int verticalIslandSize) {
+        island = new Cell[horizontalIslandSize][verticalIslandSize];
         for (int x = 0; x < island.length; x++) {
             for (int y = 0; y < island[0].length; y++) {
                 island[x][y] = new Cell(x, y);
             }
         }
     }
+
+    public void fillPlants(){
+        for (int x = 0; x < island.length; x++) {
+            for (int y = 0; y < island[0].length; y++) {
+               island[x][y].addPlants(Utills.rollTheDice(10));
+            }
+        }
+    }
+
+    public Cell getCell(int coordinateX, int coordinateY) {
+        return island[coordinateX][coordinateY];
+    }
+
 
     @Override
     public String toString() {
@@ -24,6 +46,7 @@ public class Island{
         }
         return sb.toString();
     }
+
 
 }
 

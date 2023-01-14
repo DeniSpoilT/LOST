@@ -12,13 +12,13 @@ public class AnimalFactory {
         switch (type){
             case BUFFALO:
                 animal = new Buffalo(coordinateX, coordinateY);
-
+            break;
         }
 
         return animal;
     }
 
-    private AnimalType getRandomAnimalType(){
+    public AnimalType getRandomAnimalType(){
         AnimalType type = null;
         switch (Utills.rollTheDice(0)){
             case 0:
@@ -29,6 +29,6 @@ public class AnimalFactory {
     }
 
     public enum AnimalType {
-        BUFFALO;
+        BUFFALO
     }
 }

@@ -19,7 +19,7 @@ public class Cell {
     private int coordinateX;
     private int coordinateY;
     @Getter
-    private List<? extends Animal> animalsOnCell;
+    private List<Animal> animalsOnCell;
     @Getter
     private List<Plant> plantsOnCell;
 
@@ -27,12 +27,30 @@ public class Cell {
         setCoordinateX(coordinateX);
         setCoordinateY(coordinateY);
         animalsOnCell = Stream.generate(() ->
-                 animalFactory.createAnimal(AnimalFactory.AnimalType.BUFFALO, coordinateX, coordinateY))
+                 animalFactory.createAnimal(animalFactory.getRandomAnimalType(), coordinateX, coordinateY))
                 .limit(Utills.rollTheDice(10))
                 .collect(Collectors.toList());
-        plantsOnCell = Utills.fillListPlants(20);
-
+        plantsOnCell = Utills.fillListPlants(Utills.rollTheDice(20));
     }
+
+    public void removeAnimalFromCell(Animal animal){
+        animalsOnCell.remove(animal);
+    }
+
+    public void addAnimalToCell(Animal animal){
+        animalsOnCell.add(animal);
+    }
+
+    public void removePlantFromCell(Plant plant){
+        plantsOnCell.remove(plant);
+    }
+
+
+
+    public void addPlants(int number){
+        plantsOnCell.addAll(Utills.fillListPlants(number));
+    }
+
 
 
     @Override
