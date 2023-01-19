@@ -4,43 +4,47 @@ package com.komarov.lost.floraAndFauna.animals;
 import com.komarov.lost.floraAndFauna.Eateble;
 import com.komarov.lost.island.Cell;
 import com.komarov.lost.island.Island;
+import lombok.Getter;
+import lombok.Setter;
 
 
 public abstract class Animal {
-
     public int coordinateX;
     public int coordinateY;
 
-    int weight;   // Animal weight
-    int maxPopulationOnArea; // The maximum population of animals of this species per area
-    int speed; // Animal speed
-    int satiety; // How many kilograms of food does an animal need for full saturation
-    int MAX_SATIETY;
-    boolean hungry; // The flag of satiety, if true, the animal is hungry
+    protected int weight;   // Animal weight
+    protected int maxPopulationOnArea; // The maximum population of animals of this species per area
+    protected int speed; // Animal speed
+    @Setter @Getter
+    protected int satiety = this.MAX_SATIETY / 2; // How many kilograms of food does an animal need for full saturation
+    protected int MAX_SATIETY;
+    @Getter
+    protected boolean hungry = satiety < MAX_SATIETY; // The flag of satiety, if true, the animal is hungry
 
     //    protected abstract  reproduce(Animal animal);
     protected abstract void selectDirection();
 
-    protected void move(){
+    protected void move() {
 
     }
 
-    public void eat() {
+    public synchronized void eat() {
         Eateble food = getFood();
-        if (food != null) {
-            this.satiety += food.getCaloric();
-            System.out.println("eating");
+        if (food != null && satiety < MAX_SATIETY) {
+            satiety += food.getCaloric();
+        } else {
+            this.hungry = false;
         }
     }
 
-    public Cell getPosition(){
-        return Island.ISLAND.getCell(coordinateX,coordinateY);
+    public Cell getPosition() {
+        return Island.getInstance().getCell(coordinateX, coordinateY);
     }
 
     public abstract Eateble getFood();
 
     public abstract boolean findFood();
 
-
+    public abstract void starving();
 
 }

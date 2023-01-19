@@ -7,6 +7,7 @@ import com.komarov.lost.floraAndFauna.plants.Plant;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.util.Iterator;
 import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
@@ -15,43 +16,51 @@ import java.util.stream.Stream;
 @Setter
 public class Cell {
     AnimalFactory animalFactory = new AnimalFactory();
-
     private int coordinateX;
     private int coordinateY;
     @Getter
-    private List<Animal> animalsOnCell;
+    private volatile List<Animal> animalsOnCell;
     @Getter
-    private List<Plant> plantsOnCell;
+    private volatile List<Plant> plantsOnCell;
+
 
     public Cell(int coordinateX, int coordinateY) {
         setCoordinateX(coordinateX);
         setCoordinateY(coordinateY);
         animalsOnCell = Stream.generate(() ->
-                 animalFactory.createAnimal(animalFactory.getRandomAnimalType(), coordinateX, coordinateY))
+                        animalFactory.createAnimal(animalFactory.getRandomAnimalType(), coordinateX, coordinateY))
                 .limit(Utills.rollTheDice(10))
                 .collect(Collectors.toList());
         plantsOnCell = Utills.fillListPlants(Utills.rollTheDice(20));
     }
 
-    public void removeAnimalFromCell(Animal animal){
-        animalsOnCell.remove(animal);
-    }
 
-    public void addAnimalToCell(Animal animal){
+    public void addAnimalToCell(Animal animal) {
         animalsOnCell.add(animal);
     }
 
-    public void removePlantFromCell(Plant plant){
+    public void removePlantFromCell(Plant plant) {
         plantsOnCell.remove(plant);
     }
 
 
-
-    public void addPlants(int number){
-        plantsOnCell.addAll(Utills.fillListPlants(number));
+    public void addPlants(int number) {
+        if (plantsOnCell.size() < Plant.getMAX_POPULATION_ON_AREA()) {
+            plantsOnCell.addAll(Utills.fillListPlants(number));
+        }
     }
 
+    public void animalsEat() {
+        animalsOnCell.forEach(Animal::eat);
+    }
 
+    public void animalsStarving() {
+        animalsOnCell.forEach(Animal::starving);
+    }
+
+    public synchronized void removeDeadAnimals(){
+        animalsOnCell.removeIf(animal -> animal.getSatiety()<20);
+    }
 
     @Override
     public String toString() {

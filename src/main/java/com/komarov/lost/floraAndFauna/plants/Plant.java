@@ -5,11 +5,11 @@ import lombok.Getter;
 
 
 public class Plant implements Eateble {
-    public final static String PLANT_EMOJI = "\uD83C\uDF3F"; // 🌿
+    private final static String PLANT_EMOJI = "\uD83C\uDF3F"; // 🌿
     @Getter
-    static final int MAX_POPULATION_ON_AREA = 100;
+    private static final int MAX_POPULATION_ON_AREA = 200;
     @Getter
-    static final private int WEIGHT = 5;
+    private static final int WEIGHT = 1;
 
     public Plant() {
     }

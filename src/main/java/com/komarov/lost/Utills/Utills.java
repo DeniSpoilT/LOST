@@ -12,10 +12,11 @@ public class Utills {
     private Utills(){
     }
 
-    public static List fillListPlants(int amountOfPlants){
+    public static synchronized List fillListPlants(int amountOfPlants){
         return Stream.generate(Plant::new)
                 .limit(amountOfPlants)
                 .collect(Collectors.toList());
+
     }
 
     public static int rollTheDice(int numberOfFaces){
