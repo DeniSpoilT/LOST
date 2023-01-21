@@ -1,17 +1,12 @@
 package com.komarov.lost.island;
-
-
 import com.komarov.lost.Utills.Utills;
 import lombok.Getter;
-
-import java.util.Arrays;
-import java.util.stream.Stream;
 
 public class Island {
     private static Island ISLAND; // for test
 
-    private final int horizontalIslandSize = 10;
-    private final int verticalIslandSize = 10;
+    private final int horizontalIslandSize = 100;
+    private final int verticalIslandSize = 20;
 
     public static synchronized Island getInstance() {
         if (ISLAND == null) {
@@ -35,7 +30,7 @@ public class Island {
     public void fillPlants() {
         for (int x = 0; x < island.length; x++) {
             for (int y = 0; y < island[0].length; y++) {
-                island[x][y].addPlants(Utills.rollTheDice(10));
+                island[x][y].addPlants(Utills.rollTheDice(30));
             }
         }
     }
@@ -73,6 +68,7 @@ public class Island {
                 sb.append(island[x][y].toString() + "\n");
             }
         }
+        System.out.println("*********************************************************************");
         return sb.toString();
     }
 

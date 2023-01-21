@@ -9,19 +9,31 @@ import lombok.Setter;
 
 
 public abstract class Animal {
-    public int coordinateX;
-    public int coordinateY;
+
+    protected int coordinateX;
+    protected int coordinateY;
 
     protected int weight;   // Animal weight
     protected int maxPopulationOnArea; // The maximum population of animals of this species per area
     protected int speed; // Animal speed
-    @Setter @Getter
-    protected int satiety = this.MAX_SATIETY / 2; // How many kilograms of food does an animal need for full saturation
-    protected int MAX_SATIETY;
+    @Setter
     @Getter
-    protected boolean hungry = satiety < MAX_SATIETY; // The flag of satiety, if true, the animal is hungry
+    protected int satiety = getMaxSatiety() / 2; // How many kilograms of food does an animal need for full saturation
 
-    //    protected abstract  reproduce(Animal animal);
+    @Getter
+    protected boolean hungry = getSatiety() < getMaxSatiety(); // The flag of satiety, if true, the animal is hungry
+
+//    protected reproduce(Animal animal) {
+//        if (this.getClass() == animal.getClass()) {
+//            if (this.getSatiety() > getMaxSatiety() / 2 && animal.getSatiety() > getMaxSatiety()/2) {
+//                AnimalFactory animalFactory = new AnimalFactory();
+//                this.getPosition().getAnimalsOnCell()
+//                        .add(animalFactory.createAnimal(AnimalFactory.AnimalType(this.getClass()), getPosition().getCoordinateX(), getPosition().getCoordinateY()));
+//            }
+//        }
+//
+//    }
+
     protected abstract void selectDirection();
 
     protected void move() {
@@ -30,7 +42,7 @@ public abstract class Animal {
 
     public synchronized void eat() {
         Eateble food = getFood();
-        if (food != null && satiety < MAX_SATIETY) {
+        if (food != null && satiety < getMaxSatiety()) {
             satiety += food.getCaloric();
         } else {
             this.hungry = false;
@@ -41,10 +53,24 @@ public abstract class Animal {
         return Island.getInstance().getCell(coordinateX, coordinateY);
     }
 
+    public abstract void setCoordinateX(int coordinateX);
+
+    public int getCoordinateX() {
+        return this.coordinateX;
+    }
+
+    public abstract void setCoordinateY(int coordinateY);
+
+    public int getCoordinateY() {
+        return this.coordinateY;
+    }
+
     public abstract Eateble getFood();
 
     public abstract boolean findFood();
 
     public abstract void starving();
+
+    public abstract int getMaxSatiety();
 
 }

@@ -18,6 +18,7 @@ public class Cell {
     AnimalFactory animalFactory = new AnimalFactory();
     private int coordinateX;
     private int coordinateY;
+
     @Getter
     private volatile List<Animal> animalsOnCell;
     @Getter
@@ -28,12 +29,13 @@ public class Cell {
         setCoordinateX(coordinateX);
         setCoordinateY(coordinateY);
         animalsOnCell = Stream.generate(() ->
-                        animalFactory.createAnimal(animalFactory.getRandomAnimalType(), coordinateX, coordinateY))
+                animalFactory.createAnimal(animalFactory.getRandomAnimalType()))
                 .limit(Utills.rollTheDice(10))
+                .peek(animal -> animal.setCoordinateX(coordinateX))
+                .peek(animal -> animal.setCoordinateY(coordinateY))
                 .collect(Collectors.toList());
         plantsOnCell = Utills.fillListPlants(Utills.rollTheDice(20));
     }
-
 
     public void addAnimalToCell(Animal animal) {
         animalsOnCell.add(animal);

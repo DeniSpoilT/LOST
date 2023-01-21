@@ -5,7 +5,7 @@ import com.komarov.lost.floraAndFauna.animals.Animal;
 import com.komarov.lost.floraAndFauna.plants.Plant;
 import lombok.*;
 
-@Getter @EqualsAndHashCode
+
 public class Buffalo extends Animal implements Herbivore {
 
     protected String EMOJI = "\uD83D\uDC03"; // 🐃
@@ -13,22 +13,22 @@ public class Buffalo extends Animal implements Herbivore {
     final static int MAX_POPULATION_ON_AREA = 10;
     final static int MAX_SATIETY = 100;
 
-    final int speed = 3;
-    final int weight = 700;
-//    @Setter @Getter
-//    protected int satiety = MAX_SATIETY / 2;
-//    @Setter
-//    boolean hungry = this.satiety < MAX_SATIETY;
+    final int SPEED = 3;
+    final int WEIGHT = 700;
 
-    public Buffalo(int x, int y) {
-        coordinateX = x;
-        coordinateY = y;
+    public int getSatiety(){
+        return this.satiety;
     }
-
     @Override
     protected void selectDirection() {
     }
 
+    @Override
+    public synchronized void eat(){
+        for (int i = 0; i < 10; i++) {
+            super.eat();
+        }
+    }
 
     @Override
     public synchronized Eateble getFood() {
@@ -41,17 +41,31 @@ public class Buffalo extends Animal implements Herbivore {
     }
     @Override
     public boolean findFood(){
-        System.out.println(getPosition());
         return getPosition().getPlantsOnCell().size() > 0;
     }
     @Override
     public synchronized void starving(){
-        satiety = satiety - (MAX_SATIETY/4);
+        setSatiety(getSatiety() - (getMaxSatiety()/4));
+    }
+
+    @Override
+    public int getMaxSatiety() {
+        return MAX_SATIETY;
     }
 
     @Override
     public String toString() {
         char status = isHungry() ? 'h' : 'f';
-        return EMOJI + " " + status + this.satiety;
+        return EMOJI + " " + status + getSatiety();
   }
+
+  public void setCoordinateX(int coordinateX){
+        this.coordinateX = coordinateX;
+  }
+
+
+    public void setCoordinateY(int coordinateY){
+        this.coordinateY = coordinateY;
+    }
+
 }

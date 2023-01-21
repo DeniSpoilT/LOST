@@ -5,13 +5,13 @@ import com.komarov.lost.floraAndFauna.animals.herbivores.Buffalo;
 
 public class AnimalFactory {
 
-    public Animal createAnimal(AnimalType type, int coordinateX, int coordinateY) {
+    public Animal createAnimal(AnimalType type) {
 
         Animal animal = null;
 
         switch (type){
             case BUFFALO:
-                animal = new Buffalo(coordinateX, coordinateY);
+                animal = new Buffalo();
             break;
         }
 

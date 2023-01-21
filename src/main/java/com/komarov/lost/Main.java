@@ -1,5 +1,4 @@
 package com.komarov.lost;
-import com.komarov.lost.island.Island;
 import com.komarov.lost.simulation.SimulationAnimalLive;
 import com.komarov.lost.simulation.SimulationNight;
 import com.komarov.lost.simulation.SimulationPlantsGrowth;
@@ -18,16 +17,10 @@ public class Main {
         Thread report = new Thread(new SimulationReport());
         Thread nightSimulation = new Thread(new SimulationNight());
 
-        service.schedule(growthPlantsThread, 1, TimeUnit.SECONDS);
-        service.schedule(animalsLiveThread, 5, TimeUnit.SECONDS);
-        service.schedule(nightSimulation, 10, TimeUnit.SECONDS);
-//        service.schedule(report, 1, TimeUnit.SECONDS);
-        Island island = Island.getInstance();
-        
-        while (true) {
-            System.out.println(island);
-            Thread.sleep(2000);
-        }
+        service.scheduleWithFixedDelay(growthPlantsThread, 1, 2, TimeUnit.SECONDS);
+        service.scheduleWithFixedDelay(animalsLiveThread, 1, 2, TimeUnit.SECONDS);
+        service.scheduleWithFixedDelay(nightSimulation, 4, 12, TimeUnit.SECONDS);
+        service.scheduleWithFixedDelay(report, 1, 2, TimeUnit.SECONDS);
 
     }
 }
