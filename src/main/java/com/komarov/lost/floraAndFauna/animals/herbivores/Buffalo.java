@@ -6,13 +6,10 @@ import com.komarov.lost.floraAndFauna.plants.Plant;
 import lombok.*;
 
 
-public class Buffalo extends Animal implements Herbivore {
-
+public class Buffalo extends Herbivore {
     protected String EMOJI = "\uD83D\uDC03"; // 🐃
-
     final static int MAX_POPULATION_ON_AREA = 10;
     final static int MAX_SATIETY = 100;
-
     final int SPEED = 3;
     final int WEIGHT = 700;
 
@@ -28,20 +25,6 @@ public class Buffalo extends Animal implements Herbivore {
         for (int i = 0; i < 10; i++) {
             super.eat();
         }
-    }
-
-    @Override
-    public synchronized Eateble getFood() {
-        Plant plant = null;
-        if (findFood()) {
-            plant = getPosition().getPlantsOnCell().get(0);
-            getPosition().removePlantFromCell(plant);
-        }
-        return plant;
-    }
-    @Override
-    public boolean findFood(){
-        return getPosition().getPlantsOnCell().size() > 0;
     }
     @Override
     public synchronized void starving(){

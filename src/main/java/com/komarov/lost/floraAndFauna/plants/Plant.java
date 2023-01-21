@@ -11,9 +11,6 @@ public class Plant implements Eateble {
     @Getter
     private static final int WEIGHT = 1;
 
-    public Plant() {
-    }
-
     @Override
     public String toString() {
         return PLANT_EMOJI;

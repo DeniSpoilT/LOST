@@ -1,5 +1,7 @@
 package com.komarov.lost.floraAndFauna.animals.predators;
 
-public interface Predator {
+import com.komarov.lost.floraAndFauna.animals.Animal;
+
+public abstract class Predator extends Animal {
 
 }

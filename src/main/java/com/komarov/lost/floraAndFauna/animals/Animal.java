@@ -23,15 +23,7 @@ public abstract class Animal {
     @Getter
     protected boolean hungry = getSatiety() < getMaxSatiety(); // The flag of satiety, if true, the animal is hungry
 
-//    protected reproduce(Animal animal) {
-//        if (this.getClass() == animal.getClass()) {
-//            if (this.getSatiety() > getMaxSatiety() / 2 && animal.getSatiety() > getMaxSatiety()/2) {
-//                AnimalFactory animalFactory = new AnimalFactory();
-//                this.getPosition().getAnimalsOnCell()
-//                        .add(animalFactory.createAnimal(AnimalFactory.AnimalType(this.getClass()), getPosition().getCoordinateX(), getPosition().getCoordinateY()));
-//            }
-//        }
-//
+//    protected reproduce(Animal animal) {//
 //    }
 
     protected abstract void selectDirection();
