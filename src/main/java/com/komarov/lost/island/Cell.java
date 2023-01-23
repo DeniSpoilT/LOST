@@ -7,7 +7,6 @@ import com.komarov.lost.floraAndFauna.plants.Plant;
 import lombok.Getter;
 import lombok.Setter;
 
-import java.util.Iterator;
 import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
@@ -29,7 +28,7 @@ public class Cell {
         setCoordinateX(coordinateX);
         setCoordinateY(coordinateY);
         animalsOnCell = Stream.generate(() ->
-                animalFactory.createAnimal(animalFactory.getRandomAnimalType()))
+                        animalFactory.createAnimal(animalFactory.getRandomAnimalType()))
                 .limit(Utills.rollTheDice(10))
                 .peek(animal -> animal.setCoordinateX(coordinateX))
                 .peek(animal -> animal.setCoordinateY(coordinateY))
@@ -60,8 +59,26 @@ public class Cell {
         animalsOnCell.forEach(Animal::starving);
     }
 
-    public synchronized void removeDeadAnimals(){
-        animalsOnCell.removeIf(animal -> animal.getSatiety()<20);
+    public void animalsLeavingTheCell() {
+        List copy = animalsOnCell;
+        for (int i = copy.size() - 1; i > -1; i--) {
+            animalsOnCell.get(i).move();
+        }
+    }
+
+    public static void main(String[] args) {
+        Island island = Island.getInstance();
+        System.out.println(island);
+        island.getCell(2, 2).animalsLeavingTheCell();
+        System.out.println(island);
+    }
+
+    public synchronized void animalsReproduce() {
+
+    }
+
+    public synchronized void removeDeadAnimals() {
+        animalsOnCell.removeIf(animal -> animal.getSatiety() < 20);
     }
 
     @Override
