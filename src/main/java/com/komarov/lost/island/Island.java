@@ -1,19 +1,19 @@
 package com.komarov.lost.island;
-
 import com.komarov.lost.Utills.Utills;
 import com.komarov.lost.simulation.SimulationPlantsGrowth;
 import lombok.Getter;
-
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
 
 public class Island {
-    private static Island ISLAND; // for test
+    private static Island ISLAND;
     @Getter
     private final int horizontalIslandSize = 3;
     @Getter
     private final int verticalIslandSize = 3;
+    @Getter
+    private final Cell[][] island;
 
     public static synchronized Island getInstance() {
         if (ISLAND == null) {
@@ -22,8 +22,24 @@ public class Island {
         return ISLAND;
     }
 
-    @Getter
-    private final Cell[][] island;
+            /**
+             * Main class only for testing
+             */
+    public static void main(String[] args) {
+        Island island1 = getInstance();
+        System.out.println(island1);
+        Thread growthPlantsThread = new Thread(new SimulationPlantsGrowth());
+        ScheduledExecutorService service = Executors.newScheduledThreadPool(4);
+        service.scheduleWithFixedDelay(growthPlantsThread, 1, 1, TimeUnit.MILLISECONDS);
+        for (int i = 0; i < 27; i++) {
+            island1.dayComing();
+            System.out.println(island1);
+            System.out.println("*************** Iteration " + i + " ***************");
+            island1.nightComing();
+        }
+        System.out.println(island1);
+        service.shutdown();
+    }
 
     public Island() {
         island = new Cell[horizontalIslandSize][verticalIslandSize];
@@ -47,26 +63,9 @@ public class Island {
             for (int y = 0; y < island[0].length; y++) {
                 Cell currentCell = island[x][y];
                 currentCell.animalsEat();
-//                currentCell.animalsReproduce();
                 currentCell.animalsLeavingTheCell();
             }
         }
-    }
-
-    public static void main(String[] args) {
-        Island island1 = getInstance();
-        System.out.println(island1);
-        Thread growthPlantsThread = new Thread(new SimulationPlantsGrowth());
-        ScheduledExecutorService service = Executors.newScheduledThreadPool(4);
-        service.scheduleWithFixedDelay(growthPlantsThread, 1, 1, TimeUnit.MILLISECONDS);
-        for (int i = 0; i < 7; i++) {
-            island1.dayComing();
-            System.out.println(island1);
-            System.out.println("*************** Iteration " + i + " ***************");
-        }
-        island1.nightComing();
-        System.out.println(island1);
-        service.shutdown();
     }
 
     public synchronized void nightComing() {
@@ -77,7 +76,6 @@ public class Island {
                 currentCell.removeDeadAnimals();
             }
         }
-
     }
 
     public Cell getCell(int coordinateX, int coordinateY) {
@@ -96,8 +94,4 @@ public class Island {
         System.out.println("*********************************************************************");
         return sb.toString();
     }
-
-
 }
-
-

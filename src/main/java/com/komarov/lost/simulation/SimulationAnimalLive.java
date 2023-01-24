@@ -10,8 +10,7 @@ public class SimulationAnimalLive implements Runnable {
 
         try {
             island.dayComing();
-        } catch (Exception ex) {
-//            System.out.println(ex);
+        } catch (Exception ex) {//
 //            ex.printStackTrace();
         }
 

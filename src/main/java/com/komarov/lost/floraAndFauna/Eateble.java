@@ -1,10 +1,8 @@
 package com.komarov.lost.floraAndFauna;
 
 public interface Eateble {
-
-    default int getCaloric(){
+    default double getCaloric(){
         return getWeight();
     }
-
-    int getWeight();
+    double getWeight();
 }

@@ -1,5 +1,4 @@
 package com.komarov.lost.floraAndFauna.animals;
-
 import com.komarov.lost.Utills.Utills;
 
 public enum Direction {
@@ -15,10 +14,6 @@ public enum Direction {
 
     public static Direction getRandomNotMNorthSouthWest() {
         return getDirectionToNumber(Utills.rollTheDice(3));
-    }
-
-    public static Direction getRandomNotMNorthSouth(){
-        return getDirectionToNumber(Utills.rollTheDice(2));
     }
 
     public static Direction getRandomNMNorthSouthEast() {

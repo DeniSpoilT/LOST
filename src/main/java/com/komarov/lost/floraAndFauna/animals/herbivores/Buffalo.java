@@ -1,18 +1,27 @@
 package com.komarov.lost.floraAndFauna.animals.herbivores;
+import com.komarov.lost.floraAndFauna.animals.AnimalType;
 import lombok.*;
-
-
 @EqualsAndHashCode
 public class Buffalo extends Herbivore {
     protected String EMOJI = "\uD83D\uDC03"; // 🐃
     final static int MAX_POPULATION_ON_AREA = 10;
     final static int MAX_SATIETY = 100;
     @Getter
-    final int SPEED = 3;
-    final int WEIGHT = 700;
+    int speed = 3;
+    @Getter
+    double weight = 700.0d;
 
-    public int getSatiety() {
+    public Buffalo() {
+        satiety = getMaxSatiety() / 2;
+        hungry = getSatiety() < getMaxSatiety();
+    }
+
+    public double getSatiety() {
         return this.satiety;
+    }
+
+    public void setSatiety(double value){
+        this.satiety = value;
     }
 
     @Override
@@ -25,6 +34,9 @@ public class Buffalo extends Herbivore {
     @Override
     public synchronized void starving() {
         setSatiety(getSatiety() - (getMaxSatiety() / 4));
+        if (getSatiety() < 0) {
+            setSatiety(0);
+        }
     }
 
     @Override
@@ -34,7 +46,7 @@ public class Buffalo extends Herbivore {
 
     @Override
     public boolean isHungry() {
-        return this.hungry;
+        return hungry;
     }
 
     @Override
@@ -51,5 +63,8 @@ public class Buffalo extends Herbivore {
         this.coordinateY = coordinateY;
     }
 
+    public AnimalType getAnimalType() {
+        return AnimalType.BUFFALO;
+    }
 
 }

@@ -1,12 +1,10 @@
 package com.komarov.lost.island;
-
 import com.komarov.lost.Utills.Utills;
 import com.komarov.lost.floraAndFauna.animals.Animal;
 import com.komarov.lost.floraAndFauna.animals.AnimalFactory;
 import com.komarov.lost.floraAndFauna.plants.Plant;
 import lombok.Getter;
 import lombok.Setter;
-
 import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
@@ -17,7 +15,6 @@ public class Cell {
     AnimalFactory animalFactory = new AnimalFactory();
     private int coordinateX;
     private int coordinateY;
-
     @Getter
     private volatile List<Animal> animalsOnCell;
     @Getter
@@ -36,14 +33,9 @@ public class Cell {
         plantsOnCell = Utills.fillListPlants(Utills.rollTheDice(20));
     }
 
-    public void addAnimalToCell(Animal animal) {
-        animalsOnCell.add(animal);
-    }
-
     public void removePlantFromCell(Plant plant) {
         plantsOnCell.remove(plant);
     }
-
 
     public void addPlants(int number) {
         if (plantsOnCell.size() < Plant.getMAX_POPULATION_ON_AREA()) {
@@ -52,11 +44,17 @@ public class Cell {
     }
 
     public void animalsEat() {
-        animalsOnCell.forEach(Animal::eat);
+        List copy = animalsOnCell;
+        for (int i = copy.size() - 1; i > -1; i--) {
+            animalsOnCell.get(i).eat();
+        }
     }
 
     public void animalsStarving() {
-        animalsOnCell.forEach(Animal::starving);
+        List copy = animalsOnCell;
+        for (int i = copy.size() - 1; i > -1; i--) {
+            animalsOnCell.get(i).starving();
+        }
     }
 
     public void animalsLeavingTheCell() {
@@ -64,17 +62,6 @@ public class Cell {
         for (int i = copy.size() - 1; i > -1; i--) {
             animalsOnCell.get(i).move();
         }
-    }
-
-    public static void main(String[] args) {
-        Island island = Island.getInstance();
-        System.out.println(island);
-        island.getCell(2, 2).animalsLeavingTheCell();
-        System.out.println(island);
-    }
-
-    public synchronized void animalsReproduce() {
-
     }
 
     public synchronized void removeDeadAnimals() {
@@ -88,6 +75,4 @@ public class Cell {
                 "plantsOnCell: " + plantsOnCell.toString() + "\n" +
                 "--------------------------------------------------------";
     }
-
-
 }

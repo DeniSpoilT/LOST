@@ -8,19 +8,14 @@ import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
 
 public class Main {
-    public synchronized static void main(String[] args) throws InterruptedException {
+    public synchronized static void main(String[] args) {
 
         ScheduledExecutorService service = Executors.newScheduledThreadPool(4);
 
-        Thread growthPlantsThread = new Thread(new SimulationPlantsGrowth());
-        Thread animalsLiveThread = new Thread(new SimulationAnimalLive());
-        Thread report = new Thread(new SimulationReport());
-        Thread nightSimulation = new Thread(new SimulationNight());
-
-        service.scheduleWithFixedDelay(growthPlantsThread, 1, 2, TimeUnit.SECONDS);
-        service.scheduleWithFixedDelay(animalsLiveThread, 1, 2, TimeUnit.SECONDS);
-        service.scheduleWithFixedDelay(nightSimulation, 4, 12, TimeUnit.SECONDS);
-        service.scheduleWithFixedDelay(report, 1, 2, TimeUnit.SECONDS);
+        service.scheduleWithFixedDelay(new SimulationPlantsGrowth(), 1, 2, TimeUnit.SECONDS);
+        service.scheduleWithFixedDelay(new SimulationAnimalLive(), 3, 3, TimeUnit.SECONDS);
+        service.scheduleWithFixedDelay(new SimulationNight(), 6, 6, TimeUnit.SECONDS);
+        service.scheduleWithFixedDelay(new SimulationReport(), 1, 2, TimeUnit.SECONDS);
 
     }
 }
