@@ -13,8 +13,8 @@ public class Main {
         ScheduledExecutorService service = Executors.newScheduledThreadPool(4);
 
         service.scheduleWithFixedDelay(new SimulationPlantsGrowth(), 1, 2, TimeUnit.SECONDS);
-        service.scheduleWithFixedDelay(new SimulationAnimalLive(), 3, 3, TimeUnit.SECONDS);
-        service.scheduleWithFixedDelay(new SimulationNight(), 6, 6, TimeUnit.SECONDS);
+        service.scheduleWithFixedDelay(new SimulationAnimalLive(), 2, 2, TimeUnit.SECONDS);
+        service.scheduleWithFixedDelay(new SimulationNight(), 5, 5, TimeUnit.SECONDS);
         service.scheduleWithFixedDelay(new SimulationReport(), 1, 2, TimeUnit.SECONDS);
 
     }

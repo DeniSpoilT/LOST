@@ -1,8 +1,10 @@
 package com.komarov.lost.floraAndFauna.animals.predators;
+
 import com.komarov.lost.Utills.Utills;
 import com.komarov.lost.floraAndFauna.Eateble;
 import com.komarov.lost.floraAndFauna.animals.Animal;
 import com.komarov.lost.floraAndFauna.animals.AnimalType;
+
 import java.util.Map;
 import java.util.stream.Collectors;
 
@@ -35,7 +37,7 @@ public abstract class Predator extends Animal {
     protected abstract Map<AnimalType, Integer> getChanceOfEatingPrey();
 
     private boolean huntWasSucces(AnimalType type) {
-        return Utills.rollTheDice(100) > getChanceByTypeOfPrey(type);
+        return Utills.rollTheDice(100) > 100 - getChanceByTypeOfPrey(type);
     }
 
     @Override
@@ -44,6 +46,16 @@ public abstract class Predator extends Animal {
                 .filter(animal -> animal instanceof Eateble)
                 .collect(Collectors.toList()).size() > 0;
     }
+    @Override
+    public synchronized void starving() {
+        setSatiety(getSatiety() - (getMaxSatiety() / 4));
+        if (getSatiety() < 0) {
+            setSatiety(0);
+        }
+        hungry = getSatiety() < getMaxSatiety();
+    }
+
+    protected abstract void setSatiety(double satiety);
 
     public abstract int getChanceByTypeOfPrey(AnimalType type);
 }

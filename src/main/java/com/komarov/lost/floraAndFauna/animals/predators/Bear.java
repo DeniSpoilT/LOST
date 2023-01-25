@@ -1,7 +1,9 @@
 package com.komarov.lost.floraAndFauna.animals.predators;
+
 import com.komarov.lost.floraAndFauna.animals.AnimalType;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
+
 import java.util.HashMap;
 import java.util.Map;
 
@@ -14,6 +16,7 @@ public class Bear extends Predator {
     int speed;
     @Getter
     Map chanceOfEatingPrey = new HashMap<AnimalType, Integer>();
+
     {
         chanceOfEatingPrey.put(AnimalType.SNAKE, 80);
         chanceOfEatingPrey.put(AnimalType.HORSE, 40);
@@ -27,19 +30,22 @@ public class Bear extends Predator {
         chanceOfEatingPrey.put(AnimalType.DUCK, 10);
     }
 
-    public Bear(){
+    public Bear() {
         satiety = getMaxSatiety() / 2;
         hungry = getSatiety() < getMaxSatiety();
         speed = 2;
     }
+
     @Override
-    public boolean isHungry() {
-        return hungry;
+    public synchronized void eat() {
+        for (int i = 0; i < 3; i++) {
+            super.eat();
+        }
     }
 
     @Override
-    public AnimalType getAnimalType() {
-        return AnimalType.BEAR;
+    public boolean isHungry() {
+        return hungry;
     }
 
     public void setCoordinateX(int coordinateX) {
@@ -55,30 +61,27 @@ public class Bear extends Predator {
         return (int) chanceOfEatingPrey.get(type);
     }
 
-    @Override
-    public synchronized void starving() {
-        setSatiety(getSatiety() - (getMaxSatiety() / 4));
-        if (getSatiety() < 0) {
-            setSatiety(0);
-        }
-        hungry = getSatiety() < getMaxSatiety();
-    }
-
     public double getSatiety() {
         return this.satiety;
     }
 
-    public void setSatiety(double value){
+    public void setSatiety(double value) {
         this.satiety = value;
     }
+
     @Override
-    public int getMaxSatiety() {
+    public double getMaxSatiety() {
         return MAX_SATIETY;
     }
 
     @Override
     public String toString() {
         char status = isHungry() ? 'h' : 'f';
-        return EMOJI + " " + status + getSatiety();
+        return EMOJI + " " + status + (int) getSatiety();
+    }
+
+    @Override
+    public AnimalType getAnimalType() {
+        return AnimalType.BEAR;
     }
 }

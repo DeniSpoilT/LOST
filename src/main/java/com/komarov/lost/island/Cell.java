@@ -26,11 +26,11 @@ public class Cell {
         setCoordinateY(coordinateY);
         animalsOnCell = Stream.generate(() ->
                         animalFactory.createAnimal(animalFactory.getRandomAnimalType()))
-                .limit(Utills.rollTheDice(10))
+                .limit(Utills.rollTheDice(100))
                 .peek(animal -> animal.setCoordinateX(coordinateX))
                 .peek(animal -> animal.setCoordinateY(coordinateY))
                 .collect(Collectors.toList());
-        plantsOnCell = Utills.fillListPlants(Utills.rollTheDice(20));
+        plantsOnCell = Utills.fillListPlants(Utills.rollTheDice(100));
     }
 
     public void removePlantFromCell(Plant plant) {
@@ -72,7 +72,7 @@ public class Cell {
     public String toString() {
         return "coordinates " + coordinateX + "/" + coordinateY + "\n" +
                 "animalsOnCell: " + animalsOnCell.toString() + "\n" +
-                "plantsOnCell: " + plantsOnCell.toString() + "\n" +
+                "plantsOnCell: " + Plant.EMOJI + plantsOnCell.size() + "\n" +
                 "--------------------------------------------------------";
     }
 }

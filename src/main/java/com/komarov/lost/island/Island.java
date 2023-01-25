@@ -1,17 +1,14 @@
 package com.komarov.lost.island;
+
 import com.komarov.lost.Utills.Utills;
-import com.komarov.lost.simulation.SimulationPlantsGrowth;
 import lombok.Getter;
-import java.util.concurrent.Executors;
-import java.util.concurrent.ScheduledExecutorService;
-import java.util.concurrent.TimeUnit;
 
 public class Island {
     private static Island ISLAND;
     @Getter
-    private final int horizontalIslandSize = 3;
+    private final int horizontalIslandSize = 30;
     @Getter
-    private final int verticalIslandSize = 3;
+    private final int verticalIslandSize = 30;
     @Getter
     private final Cell[][] island;
 
@@ -20,25 +17,6 @@ public class Island {
             ISLAND = new Island();
         }
         return ISLAND;
-    }
-
-            /**
-             * Main class only for testing
-             */
-    public static void main(String[] args) {
-        Island island1 = getInstance();
-        System.out.println(island1);
-        Thread growthPlantsThread = new Thread(new SimulationPlantsGrowth());
-        ScheduledExecutorService service = Executors.newScheduledThreadPool(4);
-        service.scheduleWithFixedDelay(growthPlantsThread, 1, 1, TimeUnit.MILLISECONDS);
-        for (int i = 0; i < 27; i++) {
-            island1.dayComing();
-            System.out.println(island1);
-            System.out.println("*************** Iteration " + i + " ***************");
-            island1.nightComing();
-        }
-        System.out.println(island1);
-        service.shutdown();
     }
 
     public Island() {

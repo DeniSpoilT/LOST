@@ -7,7 +7,6 @@ public abstract class Animal {
     protected int coordinateX;
     protected int coordinateY;
     protected int weight;
-    protected int maxPopulationOnCell;
     protected double satiety;
     public abstract boolean isHungry();
     protected boolean hungry;
@@ -109,6 +108,6 @@ public abstract class Animal {
     public abstract int getSpeed();
     public abstract boolean findFood();
     public abstract void starving();
-    public abstract int getMaxSatiety();
+    public abstract double getMaxSatiety();
     public abstract double getSatiety();
 }

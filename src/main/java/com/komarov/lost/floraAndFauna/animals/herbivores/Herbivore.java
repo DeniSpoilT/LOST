@@ -19,5 +19,16 @@ public abstract class Herbivore extends Animal implements Eateble {
     public boolean findFood() {
         return getPosition().getPlantsOnCell().size() > 0;
     }
+    @Override
+    public synchronized void starving() {
+        setSatiety(getSatiety() - (getMaxSatiety() / 4));
+        if (getSatiety() < 0) {
+            setSatiety(0);
+        }
+        hungry = getSatiety() < getMaxSatiety();
+    }
+
+    protected abstract void setSatiety(double satiety);
+
     public abstract AnimalType getAnimalType();
 }
