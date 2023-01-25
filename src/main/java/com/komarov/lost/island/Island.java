@@ -6,9 +6,9 @@ import lombok.Getter;
 public class Island {
     private static Island ISLAND;
     @Getter
-    private final int horizontalIslandSize = 30;
+    private final int horizontalIslandSize = 100;
     @Getter
-    private final int verticalIslandSize = 30;
+    private final int verticalIslandSize = 20;
     @Getter
     private final Cell[][] island;
 

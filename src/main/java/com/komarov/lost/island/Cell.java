@@ -26,7 +26,7 @@ public class Cell {
         setCoordinateY(coordinateY);
         animalsOnCell = Stream.generate(() ->
                         animalFactory.createAnimal(animalFactory.getRandomAnimalType()))
-                .limit(Utills.rollTheDice(100))
+                .limit(Utills.rollTheDice(5))
                 .peek(animal -> animal.setCoordinateX(coordinateX))
                 .peek(animal -> animal.setCoordinateY(coordinateY))
                 .collect(Collectors.toList());

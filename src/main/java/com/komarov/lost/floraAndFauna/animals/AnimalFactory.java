@@ -35,6 +35,6 @@ public class AnimalFactory {
                 AnimalType.DUCK, AnimalType.GOAT, AnimalType.HOG, AnimalType.HORSE,
                 AnimalType.MOUSE, AnimalType.RABBIT, AnimalType.SHEEP, AnimalType.BEAR,
                 AnimalType.EAGLE, AnimalType.FOX, AnimalType.SNAKE, AnimalType.WOLF};
-        return animalTypes[Utills.rollTheDice(8)];
+        return animalTypes[Utills.rollTheDice(14)];
     }
 }

@@ -21,30 +21,9 @@ public class Caterpillar extends Herbivore {
         weight = 0.01d;
     }
 
-    public double getSatiety() {
-        return this.satiety;
-    }
-
-    public void setSatiety(double value) {
-        this.satiety = value;
-    }
-
     @Override
     public double getMaxSatiety() {
         return MAX_SATIETY;
-    }
-
-    @Override
-    public boolean isHungry() {
-        return hungry;
-    }
-
-    public void setCoordinateX(int coordinateX) {
-        this.coordinateX = coordinateX;
-    }
-
-    public void setCoordinateY(int coordinateY) {
-        this.coordinateY = coordinateY;
     }
 
     @Override

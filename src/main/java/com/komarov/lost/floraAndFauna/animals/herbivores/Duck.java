@@ -5,7 +5,7 @@ import lombok.EqualsAndHashCode;
 import lombok.Getter;
 
 @EqualsAndHashCode
-public class Duck extends Herbivore{
+public class Duck extends Herbivore {
     protected String EMOJI = "\uD83E\uDD86"; // 🦆
 
     final static int MAX_POPULATION_ON_AREA = 200;
@@ -25,15 +25,7 @@ public class Duck extends Herbivore{
     @Override
     public synchronized void eat() {
         //add method findCaterpillar
-            super.eat();
-    }
-
-    public double getSatiety() {
-        return this.satiety;
-    }
-
-    public void setSatiety(double value) {
-        this.satiety = value;
+        super.eat();
     }
 
     @Override
@@ -42,22 +34,9 @@ public class Duck extends Herbivore{
     }
 
     @Override
-    public boolean isHungry() {
-        return hungry;
-    }
-
-    public void setCoordinateX(int coordinateX) {
-        this.coordinateX = coordinateX;
-    }
-
-    public void setCoordinateY(int coordinateY) {
-        this.coordinateY = coordinateY;
-    }
-
-    @Override
     public String toString() {
         char status = isHungry() ? 'h' : 'f';
-        return EMOJI + " " + status +  getSatiety();
+        return EMOJI + " " + status + getSatiety();
     }
 
     public AnimalType getAnimalType() {

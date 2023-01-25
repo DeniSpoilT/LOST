@@ -37,35 +37,14 @@ public class Wolf extends Predator {
 
     @Override
     public synchronized void eat() {
-        for (int i = 0; i < 5; i++) {
+        for (int i = 0; i < 3; i++) {
             super.eat();
         }
     }
 
     @Override
-    public boolean isHungry() {
-        return hungry;
-    }
-
-    public void setCoordinateX(int coordinateX) {
-        this.coordinateX = coordinateX;
-    }
-
-    public void setCoordinateY(int coordinateY) {
-        this.coordinateY = coordinateY;
-    }
-
-    @Override
     public int getChanceByTypeOfPrey(AnimalType type) {
         return (int) chanceOfEatingPrey.get(type);
-    }
-
-    public double getSatiety() {
-        return this.satiety;
-    }
-
-    public void setSatiety(double value) {
-        this.satiety = value;
     }
 
     @Override
