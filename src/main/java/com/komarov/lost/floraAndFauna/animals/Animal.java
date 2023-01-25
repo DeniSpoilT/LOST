@@ -83,8 +83,9 @@ public abstract class Animal {
         Eateble food = getFood();
         if (food != null && satiety < getMaxSatiety()) {
             satiety += food.getCaloric();
-            if (satiety > getMaxSatiety()){
+            if (satiety >= getMaxSatiety()){
                 satiety = getMaxSatiety();
+                hungry = false;
             }
         }
     }

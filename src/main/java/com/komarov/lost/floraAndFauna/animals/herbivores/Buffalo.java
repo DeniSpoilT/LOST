@@ -7,13 +7,15 @@ public class Buffalo extends Herbivore {
     final static int MAX_POPULATION_ON_AREA = 10;
     final static int MAX_SATIETY = 100;
     @Getter
-    int speed = 3;
+    int speed;
     @Getter
-    double weight = 700.0d;
+    double weight;
 
     public Buffalo() {
         satiety = getMaxSatiety() / 2;
         hungry = getSatiety() < getMaxSatiety();
+        speed = 3;
+        weight = 700.0d;
     }
 
     public double getSatiety() {
@@ -26,7 +28,7 @@ public class Buffalo extends Herbivore {
 
     @Override
     public synchronized void eat() {
-        for (int i = 0; i < 10; i++) {
+        for (int i = 0; i < 12; i++) {
             super.eat();
         }
     }
@@ -37,6 +39,7 @@ public class Buffalo extends Herbivore {
         if (getSatiety() < 0) {
             setSatiety(0);
         }
+        hungry = getSatiety() < getMaxSatiety();
     }
 
     @Override

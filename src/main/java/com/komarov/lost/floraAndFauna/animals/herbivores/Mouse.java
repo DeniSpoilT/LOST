@@ -1,5 +1,5 @@
 package com.komarov.lost.floraAndFauna.animals.herbivores;
 
 public class Mouse {
-    public final static String MOUSE_EMOJI = "\uD83D\uDC01"; // 🐁
+    protected String EMOJI = "\uD83D\uDC01"; // 🐁
 }

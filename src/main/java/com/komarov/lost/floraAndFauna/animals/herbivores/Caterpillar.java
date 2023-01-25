@@ -5,14 +5,20 @@ import lombok.Getter;
 
 @EqualsAndHashCode
 public class Caterpillar extends Herbivore{
-    public final static String EMOJI = "\uD83D\uDC1B"; // 🐛
+    protected String EMOJI = "\uD83D\uDC1B"; // 🐛
     final static int MAX_POPULATION_ON_AREA = 200;
     final static int MAX_SATIETY = 5;
     @Getter
-    int speed = 0;
+    int speed;
     @Getter
-    double weight = 0.01d;
+    double weight;
 
+    public Caterpillar() {
+        satiety = getMaxSatiety() / 2;
+        hungry = getSatiety() < getMaxSatiety();
+        speed = 0;
+        weight = 0.01d;
+    }
     public double getSatiety() {
         return this.satiety;
     }
@@ -26,6 +32,7 @@ public class Caterpillar extends Herbivore{
         if (getSatiety()<0){
             setSatiety(0);
         }
+        hungry = getSatiety() < getMaxSatiety();
     }
 
     @Override

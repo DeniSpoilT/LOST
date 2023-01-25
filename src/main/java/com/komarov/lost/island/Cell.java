@@ -43,21 +43,21 @@ public class Cell {
         }
     }
 
-    public void animalsEat() {
+    public synchronized void animalsEat() {
         List copy = animalsOnCell;
         for (int i = copy.size() - 1; i > -1; i--) {
             animalsOnCell.get(i).eat();
         }
     }
 
-    public void animalsStarving() {
+    public synchronized void animalsStarving() {
         List copy = animalsOnCell;
         for (int i = copy.size() - 1; i > -1; i--) {
             animalsOnCell.get(i).starving();
         }
     }
 
-    public void animalsLeavingTheCell() {
+    public synchronized void animalsLeavingTheCell() {
         List copy = animalsOnCell;
         for (int i = copy.size() - 1; i > -1; i--) {
             animalsOnCell.get(i).move();
@@ -65,7 +65,7 @@ public class Cell {
     }
 
     public synchronized void removeDeadAnimals() {
-        animalsOnCell.removeIf(animal -> animal.getSatiety() < 20);
+        animalsOnCell.removeIf(animal -> animal.getSatiety() < animal.getMaxSatiety()/4);
     }
 
     @Override

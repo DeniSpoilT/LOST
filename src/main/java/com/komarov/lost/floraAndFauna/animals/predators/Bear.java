@@ -7,11 +7,11 @@ import java.util.Map;
 
 @EqualsAndHashCode
 public class Bear extends Predator {
-    public final static String EMOJI = "\uD83D\uDC3B"; // 🐻
+    protected String EMOJI = "\uD83D\uDC3B"; // 🐻
     final static int MAX_POPULATION_ON_AREA = 5;
     final static int MAX_SATIETY = 80;
     @Getter
-    int speed = 2;
+    int speed;
     @Getter
     Map chanceOfEatingPrey = new HashMap<AnimalType, Integer>();
     {
@@ -27,6 +27,11 @@ public class Bear extends Predator {
         chanceOfEatingPrey.put(AnimalType.DUCK, 10);
     }
 
+    public Bear(){
+        satiety = getMaxSatiety() / 2;
+        hungry = getSatiety() < getMaxSatiety();
+        speed = 2;
+    }
     @Override
     public boolean isHungry() {
         return hungry;
@@ -56,6 +61,7 @@ public class Bear extends Predator {
         if (getSatiety() < 0) {
             setSatiety(0);
         }
+        hungry = getSatiety() < getMaxSatiety();
     }
 
     public double getSatiety() {
