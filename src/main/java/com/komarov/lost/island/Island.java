@@ -41,6 +41,7 @@ public class Island {
             for (int y = 0; y < island[0].length; y++) {
                 Cell currentCell = island[x][y];
                 currentCell.animalsEat();
+                currentCell.animalsReproduce();
                 currentCell.animalsLeavingTheCell();
             }
         }

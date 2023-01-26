@@ -1,4 +1,5 @@
 package com.komarov.lost.floraAndFauna.animals;
+
 import com.komarov.lost.floraAndFauna.Eateble;
 import com.komarov.lost.island.Cell;
 import com.komarov.lost.island.Island;
@@ -8,7 +9,9 @@ public abstract class Animal {
     protected int coordinateY;
     protected int weight;
     protected double satiety;
+
     public abstract boolean isHungry();
+
     protected boolean hungry;
 
     public synchronized void move() {
@@ -46,43 +49,57 @@ public abstract class Animal {
         } else if (currentY == 0 || currentY == maxY) {
             if (currentX != 0 && currentX != maxX) {
                 if (currentY == 0) {
-                    currentDirection =  Direction.getRandomNMSouthWestEast();//south east west
+                    currentDirection = Direction.getRandomNMSouthWestEast();//south east west
                 } else if (currentY == maxY) {
-                    currentDirection =  Direction.getRandomNMNorthWestEast();//north east west
+                    currentDirection = Direction.getRandomNMNorthWestEast();//north east west
                 }
             }
 
         } else if (currentX == 0 || currentX == maxX) {
             if (currentY != 0 && currentY != maxY) {
                 if (currentX == 0) {
-                    currentDirection =  Direction.getRandomNMNorthSouthEast();
+                    currentDirection = Direction.getRandomNMNorthSouthEast();
                 } else if (currentX == maxX) {
-                    currentDirection =  Direction.getRandomNotMNorthSouthWest();
+                    currentDirection = Direction.getRandomNotMNorthSouthWest();
                 }
             }
 
         } else if (currentX == 0) {
             if (currentY == 0) {
-                currentDirection =  Direction.getRandomNMEastSouth(); //east south
+                currentDirection = Direction.getRandomNMEastSouth(); //east south
             } else if (currentY == maxY) {
-                currentDirection =  Direction.getRandomNMEastNorth();//east north
+                currentDirection = Direction.getRandomNMEastNorth();//east north
             }
 
         } else if (currentX == maxX) {
             if (currentY == 0) {
-                currentDirection =  Direction.getRandomNMWestSouth();//west south
+                currentDirection = Direction.getRandomNMWestSouth();//west south
             } else if (currentY == maxY) {
-                currentDirection =  Direction.getRandomNMWestNorth();//west north
+                currentDirection = Direction.getRandomNMWestNorth();//west north
             }
         }
         return currentDirection;
+    }
+
+    public synchronized void reproduce() {
+        AnimalFactory animalFactory = new AnimalFactory();
+        if (this.getSatiety() > getMaxSatiety() / 2 && findPair() != null) {
+            getPosition().getAnimalsOnCell().add(animalFactory.createAnimal(this.getAnimalType()));
+        }
+    }
+
+    public synchronized Animal findPair() {
+        return getPosition().getAnimalsOnCell().stream()
+                .filter(animal -> animal.getAnimalType().equals(this.getAnimalType()))
+                .filter(animal -> animal.getSatiety() > animal.getMaxSatiety() / 2)
+                .findFirst().orElse(null);
     }
 
     public synchronized void eat() {
         Eateble food = getFood();
         if (food != null && satiety < getMaxSatiety()) {
             satiety += food.getCaloric();
-            if (satiety >= getMaxSatiety()){
+            if (satiety >= getMaxSatiety()) {
                 satiety = getMaxSatiety();
                 hungry = false;
             }
@@ -102,12 +119,20 @@ public abstract class Animal {
     }
 
     public abstract AnimalType getAnimalType();
+
     public abstract void setCoordinateX(int coordinateX);
+
     public abstract void setCoordinateY(int coordinateY);
+
     public abstract Eateble getFood();
+
     public abstract int getSpeed();
+
     public abstract boolean findFood();
+
     public abstract void starving();
+
     public abstract double getMaxSatiety();
+
     public abstract double getSatiety();
 }

@@ -15,6 +15,7 @@ public class Cell {
     AnimalFactory animalFactory = new AnimalFactory();
     private int coordinateX;
     private int coordinateY;
+    private final int MAX_ANIMALS_POPULATION_ON_CELL = 100;
     @Getter
     private volatile List<Animal> animalsOnCell;
     @Getter
@@ -26,7 +27,7 @@ public class Cell {
         setCoordinateY(coordinateY);
         animalsOnCell = Stream.generate(() ->
                         animalFactory.createAnimal(animalFactory.getRandomAnimalType()))
-                .limit(Utills.rollTheDice(5))
+                .limit(Utills.rollTheDice(MAX_ANIMALS_POPULATION_ON_CELL))
                 .peek(animal -> animal.setCoordinateX(coordinateX))
                 .peek(animal -> animal.setCoordinateY(coordinateY))
                 .collect(Collectors.toList());
@@ -47,6 +48,13 @@ public class Cell {
         List copy = animalsOnCell;
         for (int i = copy.size() - 1; i > -1; i--) {
             animalsOnCell.get(i).eat();
+        }
+    }
+
+    public synchronized void animalsReproduce() {
+        List copy = animalsOnCell;
+        for (int i = copy.size() - 1; i > -1; i--) {
+            animalsOnCell.get(i).reproduce();
         }
     }
 
