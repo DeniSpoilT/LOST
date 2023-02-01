@@ -8,7 +8,7 @@ import java.util.stream.Stream;
 public class Utills {
     private Utills() {
     }
-    public static synchronized List fillListPlants(int amountOfPlants) {
+    public static synchronized List<Plant> fillListPlants(int amountOfPlants) {
         return Stream.generate(Plant::new)
                 .limit(amountOfPlants)
                 .collect(Collectors.toList());

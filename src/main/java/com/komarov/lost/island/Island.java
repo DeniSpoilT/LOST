@@ -6,9 +6,9 @@ import lombok.Getter;
 public class Island {
     private static Island ISLAND;
     @Getter
-    private final int horizontalIslandSize = 100;
+    private final int horizontalIslandSize = 10;
     @Getter
-    private final int verticalIslandSize = 20;
+    private final int verticalIslandSize = 10;
     @Getter
     private final Cell[][] island;
 
@@ -28,7 +28,7 @@ public class Island {
         }
     }
 
-    public void fillPlants() {
+    public void growPlants() {
         for (int x = 0; x < island.length; x++) {
             for (int y = 0; y < island[0].length; y++) {
                 island[x][y].addPlants(Utills.rollTheDice(30));

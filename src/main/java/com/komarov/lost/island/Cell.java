@@ -34,40 +34,36 @@ public class Cell {
         plantsOnCell = Utills.fillListPlants(Utills.rollTheDice(100));
     }
 
-    public void removePlantFromCell(Plant plant) {
+    public synchronized void removePlantFromCell(Plant plant) {
         plantsOnCell.remove(plant);
     }
 
-    public void addPlants(int number) {
+    public synchronized void addPlants(int number) {
         if (plantsOnCell.size() < Plant.getMAX_POPULATION_ON_AREA()) {
             plantsOnCell.addAll(Utills.fillListPlants(number));
         }
     }
 
     public synchronized void animalsEat() {
-        List copy = animalsOnCell;
-        for (int i = copy.size() - 1; i > -1; i--) {
+        for (int i = animalsOnCell.size() - 1; i > -1; i--) {
             animalsOnCell.get(i).eat();
         }
     }
 
     public synchronized void animalsReproduce() {
-        List copy = animalsOnCell;
-        for (int i = copy.size() - 1; i > -1; i--) {
+        for (int i = animalsOnCell.size() - 1; i > -1; i--) {
             animalsOnCell.get(i).reproduce();
         }
     }
 
     public synchronized void animalsStarving() {
-        List copy = animalsOnCell;
-        for (int i = copy.size() - 1; i > -1; i--) {
+        for (int i = animalsOnCell.size() - 1; i > -1; i--) {
             animalsOnCell.get(i).starving();
         }
     }
 
     public synchronized void animalsLeavingTheCell() {
-        List copy = animalsOnCell;
-        for (int i = copy.size() - 1; i > -1; i--) {
+        for (int i = animalsOnCell.size() - 1; i > -1; i--) {
             animalsOnCell.get(i).move();
         }
     }
@@ -78,7 +74,7 @@ public class Cell {
 
     @Override
     public String toString() {
-        return "coordinates " + coordinateX + "/" + coordinateY + "\n" +
+        return "coordinates " + coordinateX + ":" + coordinateY + "\n" +
                 "animalsOnCell: " + animalsOnCell.toString() + "\n" +
                 "plantsOnCell: " + Plant.EMOJI + plantsOnCell.size() + "\n" +
                 "--------------------------------------------------------";

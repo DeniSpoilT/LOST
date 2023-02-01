@@ -1,5 +1,6 @@
 package com.komarov.lost.floraAndFauna.animals.predators;
 
+import com.komarov.lost.floraAndFauna.animals.Animal;
 import com.komarov.lost.floraAndFauna.animals.AnimalType;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
@@ -10,6 +11,7 @@ import java.util.Map;
 @EqualsAndHashCode
 public class Wolf extends Predator {
     protected String EMOJI = "\uD83D\uDC3A"; // 🐺
+    public int id;
     final static int MAX_POPULATION_ON_AREA = 30;
     final static int MAX_SATIETY = 8;
     @Getter
@@ -33,6 +35,7 @@ public class Wolf extends Predator {
         satiety = getMaxSatiety() / 2;
         hungry = getSatiety() < getMaxSatiety();
         speed = 3;
+        this.id = ++Animal.id;;
     }
 
     @Override
@@ -55,7 +58,7 @@ public class Wolf extends Predator {
     @Override
     public String toString() {
         char status = isHungry() ? 'h' : 'f';
-        return EMOJI + " " + status + (int) getSatiety();
+        return EMOJI + " " + status + (int) getSatiety() + " " + id;
     }
 
     @Override

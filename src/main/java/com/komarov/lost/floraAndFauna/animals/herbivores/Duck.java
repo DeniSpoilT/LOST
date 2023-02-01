@@ -1,5 +1,6 @@
 package com.komarov.lost.floraAndFauna.animals.herbivores;
 
+import com.komarov.lost.floraAndFauna.animals.Animal;
 import com.komarov.lost.floraAndFauna.animals.AnimalType;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
@@ -7,6 +8,7 @@ import lombok.Getter;
 @EqualsAndHashCode
 public class Duck extends Herbivore {
     protected String EMOJI = "\uD83E\uDD86"; // 🦆
+    public int id;
 
     final static int MAX_POPULATION_ON_AREA = 200;
     final static double MAX_SATIETY = 0.15d;
@@ -20,6 +22,7 @@ public class Duck extends Herbivore {
         hungry = getSatiety() < getMaxSatiety();
         speed = 4;
         weight = 1.0d;
+        this.id = ++Animal.id;
     }
 
     @Override
@@ -36,7 +39,7 @@ public class Duck extends Herbivore {
     @Override
     public String toString() {
         char status = isHungry() ? 'h' : 'f';
-        return EMOJI + " " + status + getSatiety();
+        return EMOJI + " " + status + getSatiety() + " " + id;
     }
 
     public AnimalType getAnimalType() {

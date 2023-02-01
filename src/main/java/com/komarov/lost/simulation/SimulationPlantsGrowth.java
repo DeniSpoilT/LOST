@@ -6,6 +6,6 @@ public class SimulationPlantsGrowth implements Runnable {
     Island island = Island.getInstance();
     @Override
     public void run() {
-        island.fillPlants();
+        island.growPlants();
     }
 }

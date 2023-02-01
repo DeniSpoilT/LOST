@@ -5,6 +5,7 @@ import com.komarov.lost.island.Cell;
 import com.komarov.lost.island.Island;
 
 public abstract class Animal {
+    protected static int id = 0;
     protected int coordinateX;
     protected int coordinateY;
     protected int weight;
