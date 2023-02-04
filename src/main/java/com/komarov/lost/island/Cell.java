@@ -25,15 +25,18 @@ public class Cell {
     public Cell(int coordinateX, int coordinateY) {
         setCoordinateX(coordinateX);
         setCoordinateY(coordinateY);
-        animalsOnCell = Stream.generate(() ->
-                        animalFactory.createAnimal(animalFactory.getRandomAnimalType()))
-                .limit(Utills.rollTheDice(MAX_ANIMALS_POPULATION_ON_CELL))
-                .peek(animal -> animal.setCoordinateX(coordinateX))
-                .peek(animal -> animal.setCoordinateY(coordinateY))
-                .collect(Collectors.toList());
+        animalsOnCell = createListAnimals();
         plantsOnCell = Utills.fillListPlants(Utills.rollTheDice(100));
     }
 
+    private List <Animal> createListAnimals(){
+        return Stream.generate(() ->
+                        animalFactory.createAnimal(animalFactory.getRandomAnimalType()))
+                .limit(Utills.rollTheDice(MAX_ANIMALS_POPULATION_ON_CELL))
+                .peek(animal -> {animal.setCoordinateX(coordinateX);
+                                 animal.setCoordinateY(coordinateY);})
+                .collect(Collectors.toList());
+    }
     public synchronized void removePlantFromCell(Plant plant) {
         plantsOnCell.remove(plant);
     }

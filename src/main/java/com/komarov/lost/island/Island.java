@@ -3,12 +3,14 @@ package com.komarov.lost.island;
 import com.komarov.lost.Utills.Utills;
 import lombok.Getter;
 
+import java.util.Arrays;
+
 public class Island {
     private static Island ISLAND;
     @Getter
-    private final int horizontalIslandSize = 10;
+    private final int horizontalIslandSize = 3;
     @Getter
-    private final int verticalIslandSize = 10;
+    private final int verticalIslandSize = 3;
     @Getter
     private final Cell[][] island;
 
@@ -41,8 +43,8 @@ public class Island {
             for (int y = 0; y < island[0].length; y++) {
                 Cell currentCell = island[x][y];
                 currentCell.animalsEat();
-                currentCell.animalsReproduce();
                 currentCell.animalsLeavingTheCell();
+                currentCell.animalsReproduce();
             }
         }
     }
@@ -57,17 +59,26 @@ public class Island {
         }
     }
 
+    public static synchronized boolean checkLife() {
+        return Arrays.stream(getInstance().island)
+                .flatMap(Arrays::stream)
+                .flatMap(cell -> cell.getAnimalsOnCell().stream())
+                .toList().size() > 0;
+    }
+
     public Cell getCell(int coordinateX, int coordinateY) {
         return island[coordinateX][coordinateY];
     }
-
 
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
         for (int x = 0; x < island.length; x++) {
             for (int y = 0; y < island[0].length; y++) {
-                sb.append(island[x][y].toString() + "\n");
+                Cell current = island[x][y];
+                if (current.getAnimalsOnCell().size() > 0) {
+                    sb.append(current + "\n");
+                }
             }
         }
         System.out.println("*********************************************************************");
