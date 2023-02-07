@@ -4,6 +4,8 @@ import com.komarov.lost.Utills.Utills;
 import com.komarov.lost.floraAndFauna.animals.herbivores.*;
 import com.komarov.lost.floraAndFauna.animals.predators.*;
 
+import java.util.Arrays;
+
 public class AnimalFactory {
     public Animal createAnimal(AnimalType type) {
 
@@ -30,11 +32,6 @@ public class AnimalFactory {
     }
 
     public AnimalType getRandomAnimalType() {
-        AnimalType type = null;
-        AnimalType[] animalTypes = {AnimalType.BUFFALO, AnimalType.CATERPILLAR, AnimalType.DEER,
-                AnimalType.DUCK, AnimalType.GOAT, AnimalType.HOG, AnimalType.HORSE,
-                AnimalType.MOUSE, AnimalType.RABBIT, AnimalType.SHEEP, AnimalType.BEAR,
-                AnimalType.EAGLE, AnimalType.FOX, AnimalType.SNAKE, AnimalType.WOLF};
-        return animalTypes[Utills.rollTheDice(14)];
+        return AnimalType.values()[Utills.rollTheDice(14)];
     }
 }

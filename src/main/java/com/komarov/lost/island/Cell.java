@@ -30,8 +30,7 @@ public class Cell {
     }
 
     private List <Animal> createListAnimals(){
-        return Stream.generate(() ->
-                        animalFactory.createAnimal(animalFactory.getRandomAnimalType()))
+        return Stream.generate(() -> animalFactory.createAnimal(animalFactory.getRandomAnimalType()))
                 .limit(Utills.rollTheDice(MAX_ANIMALS_POPULATION_ON_CELL))
                 .peek(animal -> {animal.setCoordinateX(coordinateX);
                                  animal.setCoordinateY(coordinateY);})
