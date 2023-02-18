@@ -1,8 +1,5 @@
-package floraAndFauna.animals;
+package com.komarov.lost.floraAndFauna.animals;
 
-import com.komarov.lost.floraAndFauna.animals.Animal;
-import com.komarov.lost.floraAndFauna.animals.AnimalFactory;
-import com.komarov.lost.floraAndFauna.animals.AnimalType;
 import org.junit.jupiter.api.*;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.EnumSource;

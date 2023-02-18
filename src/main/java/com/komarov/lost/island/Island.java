@@ -8,9 +8,9 @@ import java.util.Arrays;
 public class Island {
     private static Island ISLAND;
     @Getter
-    private final int horizontalIslandSize = 3;
+    private final int horizontalIslandSize = 100;
     @Getter
-    private final int verticalIslandSize = 3;
+    private final int verticalIslandSize = 20;
     @Getter
     private final Cell[][] island;
 
