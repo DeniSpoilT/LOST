@@ -5,6 +5,8 @@ import com.komarov.lost.floraAndFauna.animals.AnimalFactory;
 import com.komarov.lost.floraAndFauna.plants.Plant;
 import lombok.Getter;
 import lombok.Setter;
+
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
@@ -20,7 +22,6 @@ public class Cell {
     private volatile List<Animal> animalsOnCell;
     @Getter
     private volatile List<Plant> plantsOnCell;
-
 
     public Cell(int coordinateX, int coordinateY) {
         setCoordinateX(coordinateX);

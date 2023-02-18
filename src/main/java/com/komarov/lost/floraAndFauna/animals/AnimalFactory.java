@@ -3,12 +3,16 @@ package com.komarov.lost.floraAndFauna.animals;
 import com.komarov.lost.Utills.Utills;
 import com.komarov.lost.floraAndFauna.animals.herbivores.*;
 import com.komarov.lost.floraAndFauna.animals.predators.*;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.util.Arrays;
 
 public class AnimalFactory {
-    public Animal createAnimal(AnimalType type) {
+    private static final Logger log = LoggerFactory.getLogger(AnimalFactory.class);
 
+    public Animal createAnimal(AnimalType type) {
+        log.info("Creating animal = " + type);
         Animal animal = null;
 
         animal = switch (type) {
@@ -29,6 +33,11 @@ public class AnimalFactory {
             case WOLF -> new Wolf();
         };
         return animal;
+    }
+
+    public static void main(String[] args) {
+        AnimalFactory af = new AnimalFactory();
+        Animal animal = af.createAnimal(af.getRandomAnimalType());
     }
 
     public AnimalType getRandomAnimalType() {

@@ -6,6 +6,8 @@ import com.komarov.lost.simulation.SimulationNight;
 import com.komarov.lost.simulation.SimulationPlantsGrowth;
 import com.komarov.lost.simulation.SimulationReport;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
@@ -21,17 +23,14 @@ public class Main {
         service.scheduleWithFixedDelay(new SimulationNight(), 5, 10, TimeUnit.SECONDS);
         service.scheduleWithFixedDelay(new SimulationReport(), 1, 3, TimeUnit.SECONDS);
 
-        while (flag){
+        while (flag) {
             flag = Island.checkLife();
             try {
                 Thread.sleep(500);
-            }catch (Exception e){
+            } catch (Exception e) {
                 e.printStackTrace();
             }
         }
         service.shutdownNow();
-
-
     }
-
 }
