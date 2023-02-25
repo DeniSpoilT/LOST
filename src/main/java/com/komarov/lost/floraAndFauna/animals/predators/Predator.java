@@ -24,12 +24,13 @@ public abstract class Predator extends Animal {
         return (Eateble) prey;
     }
 
-    public Animal hunting() {
+    public synchronized Animal hunting() {
         Animal prey = null;
         if (findFood()) {
             prey = getPosition().getAnimalsOnCell().stream()
                     .filter(animal -> animal instanceof Eateble)
                     .findAny().orElse(null);
+            getPosition().getAnimalsOnCell().remove(prey);
         }
         return prey;
     }
@@ -41,7 +42,7 @@ public abstract class Predator extends Animal {
     }
 
     @Override
-    public boolean findFood() {
+    public synchronized boolean findFood() {
         return getPosition().getAnimalsOnCell().stream()
                 .filter(animal -> animal instanceof Eateble)
                 .collect(Collectors.toList()).size() > 0;

@@ -8,9 +8,9 @@ import java.util.Arrays;
 public class Island {
     private static Island ISLAND;
     @Getter
-    private final int horizontalIslandSize = 100;
+    private final int horizontalIslandSize = 3;
     @Getter
-    private final int verticalIslandSize = 20;
+    private final int verticalIslandSize = 3;
     @Getter
     private final Cell[][] island;
 
@@ -38,7 +38,7 @@ public class Island {
         }
     }
 
-    public void dayComing() {
+    public synchronized void dayComing() {
         for (int x = 0; x < island.length; x++) {
             for (int y = 0; y < island[0].length; y++) {
                 Cell currentCell = island[x][y];

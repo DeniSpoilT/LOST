@@ -32,54 +32,13 @@ public abstract class Animal {
             case EAST -> this.setCoordinateX(getCoordinateX() + 1);
             case NOT_MOVE -> this.setCoordinateX(getCoordinateX());
         }
+        System.out.println(this.toString() + " new coordinate" + this.getCoordinateX() + ":" + this.getCoordinateY());
     }
 
     protected synchronized Direction selectDirection() {
-        Island island = Island.getInstance();
-        int maxX = island.getHorizontalIslandSize() - 1;
-        int maxY = island.getVerticalIslandSize() - 1;
-        int currentX = getCoordinateX();
-        int currentY = getCoordinateY();
-
-        Direction currentDirection = Direction.NOT_MOVE;
-
-        if (currentX > 0 && currentY > 0 && currentX < maxX && currentY < maxY) {
-
-            currentDirection = Direction.getRandomDirection();
-
-        } else if (currentY == 0 || currentY == maxY) {
-            if (currentX != 0 && currentX != maxX) {
-                if (currentY == 0) {
-                    currentDirection = Direction.getRandomNMSouthWestEast();//south east west
-                } else if (currentY == maxY) {
-                    currentDirection = Direction.getRandomNMNorthWestEast();//north east west
-                }
-            }
-
-        } else if (currentX == 0 || currentX == maxX) {
-            if (currentY != 0 && currentY != maxY) {
-                if (currentX == 0) {
-                    currentDirection = Direction.getRandomNMNorthSouthEast();
-                } else if (currentX == maxX) {
-                    currentDirection = Direction.getRandomNotMNorthSouthWest();
-                }
-            }
-
-        } else if (currentX == 0) {
-            if (currentY == 0) {
-                currentDirection = Direction.getRandomNMEastSouth(); //east south
-            } else if (currentY == maxY) {
-                currentDirection = Direction.getRandomNMEastNorth();//east north
-            }
-
-        } else if (currentX == maxX) {
-            if (currentY == 0) {
-                currentDirection = Direction.getRandomNMWestSouth();//west south
-            } else if (currentY == maxY) {
-                currentDirection = Direction.getRandomNMWestNorth();//west north
-            }
-        }
-        return currentDirection;
+        Direction direction = new DirectionChooser(this).chooseDirection();
+        System.out.println(this.toString() + " go to the " + direction.toString());
+        return direction;
     }
 
     public synchronized void reproduce() {
@@ -98,8 +57,12 @@ public abstract class Animal {
 
     public synchronized void eat() {
         Eateble food = getFood();
+        if (food == null){
+            System.out.println(this.toString() + " did not find food");
+        }
         if (food != null && satiety < getMaxSatiety()) {
             satiety += food.getCaloric();
+            System.out.println(this.toString() + " ate the " + food.toString());
             if (satiety >= getMaxSatiety()) {
                 satiety = getMaxSatiety();
                 hungry = false;
@@ -107,7 +70,7 @@ public abstract class Animal {
         }
     }
 
-    public Cell getPosition() {
+    public synchronized Cell getPosition() {
         return Island.getInstance().getCell(coordinateX, coordinateY);
     }
 

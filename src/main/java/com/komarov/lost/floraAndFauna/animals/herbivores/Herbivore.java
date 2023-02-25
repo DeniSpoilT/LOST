@@ -16,7 +16,7 @@ public abstract class Herbivore extends Animal implements Eateble {
         return plant;
     }
     @Override
-    public boolean findFood() {
+    public synchronized boolean findFood() {
         return getPosition().getPlantsOnCell().size() > 0;
     }
     @Override
